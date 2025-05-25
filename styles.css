@@ -20,3 +20,13 @@
     border-radius: 15px;
     background-color: #e5e5e5 ;
 }
+
+.add-book-btn {
+    border: 0;
+    width: 100px;
+    height: 40px;
+    color: white;
+    background-color: #3a86ff;
+    font-size: large;
+    border-radius: 7px;
+}
