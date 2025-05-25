@@ -26,3 +26,23 @@ function testAddBooksToLibrary() {
 
 testAddBooksToLibrary()
 console.log(myLibrary);
+
+const bookDisplay = document.querySelector(".book-display");
+console.log(bookDisplay);
+
+function displayBook() {
+    myLibrary.forEach(book => {
+
+        const bookElement = document.createElement("div");
+        bookElement.innerHTML = `
+        <div id="${book.id}">
+            <h2>${book.title}</h2>
+            <p>${book.author}</p>
+        </div>        
+        `;
+
+        bookDisplay.appendChild(bookElement);
+    });
+}
+
+displayBook();
