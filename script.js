@@ -21,6 +21,7 @@ function testAddBooksToLibrary() {
     addBookToLibrary("Book 1", "Author 1");
     addBookToLibrary("Book 2", "Author 2");
     addBookToLibrary("Book 3", "Author 3");
+    addBookToLibrary("Book 4", "Author 4");
 }
 
 
@@ -35,7 +36,7 @@ function displayBook() {
 
         const bookElement = document.createElement("div");
         bookElement.innerHTML = `
-        <div id="${book.id}">
+        <div id="${book.id}" class="book">
             <h2>${book.title}</h2>
             <p>${book.author}</p>
         </div>        
