@@ -1,27 +1,29 @@
 const myLibrary = [];
 
-function Book(title, author, id) {
+function Book(title, author, pages, read, id) {
     if (!new.target) {
         throw Error("Use new to for constructor.");
     }
 
     this.title = title;
     this.author = author;
+    this.pages = pages;
+    this.read = read;
     this.id = id;
 }
 
-function addBookToLibrary(title, author) {
+function addBookToLibrary(title, author, pages, read) {
     const uid = self.crypto.randomUUID();
-    const book = new Book(title, author, uid);
+    const book = new Book(title, author, pages, read, uid);
     myLibrary.push(book);
 }
 
 
 function testAddBooksToLibrary() {
-    addBookToLibrary("Book 1", "Author 1");
-    addBookToLibrary("Book 2", "Author 2");
-    addBookToLibrary("Book 3", "Author 3");
-    addBookToLibrary("Book 4", "Author 4");
+    addBookToLibrary("Book 1", "Author 1", 30, true);
+    addBookToLibrary("Book 2", "Author 2", 60, true);
+    addBookToLibrary("Book 3", "Author 3", 20, false);
+    addBookToLibrary("Book 4", "Author 4", 53, false);
 }
 
 
@@ -39,6 +41,8 @@ function displayBook() {
         <div id="${book.id}" class="book">
             <h2>${book.title}</h2>
             <p>${book.author}</p>
+            <p>${book.pages} Pages</p>
+            <p>${book.read ? "have read" : "not yet read"}</p>
         </div>        
         `;
 
