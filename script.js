@@ -16,3 +16,13 @@ function addBookToLibrary(title, author) {
     myLibrary.push(book);
 }
 
+
+function testAddBooksToLibrary() {
+    addBookToLibrary("Book 1", "Author 1");
+    addBookToLibrary("Book 2", "Author 2");
+    addBookToLibrary("Book 3", "Author 3");
+}
+
+
+testAddBooksToLibrary()
+console.log(myLibrary);
