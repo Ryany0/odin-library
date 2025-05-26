@@ -28,10 +28,8 @@ function testAddBooksToLibrary() {
 
 
 testAddBooksToLibrary()
-console.log(myLibrary);
 
 const bookDisplay = document.querySelector(".book-display");
-console.log(bookDisplay);
 
 function displayBook() {
     myLibrary.forEach(book => {
@@ -54,7 +52,8 @@ displayBook();
 
 const addBookDialog = document.querySelector("dialog");
 const showBookDialogBtn = document.querySelector(".add-book-btn");
-const closeBookDialogBtn = document.querySelector("#close-dialog")
+const closeBookDialogBtn = document.querySelector("#close-dialog");
+const addBookBtn = document.querySelector("#add-btn");
 
 showBookDialogBtn.addEventListener("click", () => {
     addBookDialog.showModal();
@@ -62,4 +61,27 @@ showBookDialogBtn.addEventListener("click", () => {
 
 closeBookDialogBtn.addEventListener("click", ()=> {
     addBookDialog.close();
+});
+
+addBookBtn.addEventListener("click", (e) => {
+    const form = document.querySelector("form");
+
+    if (form.checkValidity() === false) {
+        return;
+    }
+
+    e.preventDefault();
+
+    const bookInput = document.querySelectorAll("form > input");
+    const bookReadInput = document.querySelector("input[type=radio]:checked");
+
+    const title = bookInput[0].value;
+    const author = bookInput[1].value;
+    const pages = bookInput[2].value;
+    const read = bookReadInput.value;
+    addBookToLibrary(title, author, pages, read);
+    displayBook();
+
+    addBookDialog.close();
+    form.reset();
 });
