@@ -19,27 +19,23 @@
         </div>
     </div>
 
-    <dialog>
+    <dialog open>
         <button id="close-dialog">X</button>
         <form method="dialog">
-            <div>
-                <label for="book-title">Title*</label>
-                <input type="text" id="book-title">
-            </div>
-            <div>
-                <label for="book-author">Author*</label>
-                <input type="text" id="book-author">
-            </div>
-            <div>
-                <label for="book-pages"># of pages*</label>
-                <input type="number" id="book-pages">
-            </div>
+            <h1>Add Book</h1>
+            <input type="text" id="book-title" placeholder="Title" autofocus required>
+            <input type="text" id="book-author" placeholder="Author" required>
+            <input type="number" id="book-pages" placeholder="Pages" required>
             <fieldset>
                 <legend>Book Status</legend>
-                <label for="book-read">Read</label>
-                <input type="radio" value="true" id="book-read" name="book-status">
-                <label for="book-not-read">Not read</label>
-                <input type="radio" value="false" id="book-not-read" name="book-status" checked>
+                <div>
+                    <label for="book-read">Read</label>
+                    <input type="radio" value="true" id="book-read" name="book-status">
+                </div>
+                <div>
+                    <label for="book-not-read">Not read</label>
+                    <input type="radio" value="false" id="book-not-read" name="book-status" checked>
+                </div>
             </fieldset>
             
 
