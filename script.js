@@ -32,6 +32,7 @@ testAddBooksToLibrary()
 const bookDisplay = document.querySelector(".book-display");
 
 function displayBook() {
+    bookDisplay.innerHTML = "";
     myLibrary.forEach(book => {
 
         const bookElement = document.createElement("div");
