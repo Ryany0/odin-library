@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pages, read, id) {
     if (!new.target) {
@@ -12,18 +12,23 @@ function Book(title, author, pages, read, id) {
     this.id = id;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    const uid = self.crypto.randomUUID();
-    const book = new Book(title, author, pages, read, uid);
+function addBookToLibrary(title, author, pages, read, id) {
+
+    const book = new Book(title, author, pages, read, id);
     myLibrary.push(book);
+
 }
 
 
 function testAddBooksToLibrary() {
-    addBookToLibrary("Book 1", "Author 1", 30, true);
-    addBookToLibrary("Book 2", "Author 2", 60, true);
-    addBookToLibrary("Book 3", "Author 3", 20, false);
-    addBookToLibrary("Book 4", "Author 4", 53, false);
+    const uid1 = self.crypto.randomUUID();
+    const uid2 = self.crypto.randomUUID();
+    const uid3 = self.crypto.randomUUID();
+    const uid4 = self.crypto.randomUUID();
+    addBookToLibrary("Book 1", "Author 1", 30, true, uid1);
+    addBookToLibrary("Book 2", "Author 2", 60, true, uid2);
+    addBookToLibrary("Book 3", "Author 3", 20, false, uid3);
+    addBookToLibrary("Book 4", "Author 4", 53, false, uid4);
 }
 
 
@@ -36,18 +41,40 @@ function displayBook() {
     myLibrary.forEach(book => {
 
         const bookElement = document.createElement("div");
+        bookElement.classList.add("book");
+        bookElement.id = book.id;
         bookElement.innerHTML = `
-        <div id="${book.id}" class="book">
             <h2>${book.title}</h2>
             <p>${book.author}</p>
             <p>${book.pages} Pages</p>
             <p>${book.read ? "have read" : "not yet read"}</p>
             <button class="remove-book-btn" data-id="${book.id}">Remove</button>
-        </div>        
         `;
 
         bookDisplay.appendChild(bookElement);
     });
+}
+
+function addBookToDom(title, author, pages, read, id) {
+
+    const bookElement = document.createElement("div");
+    bookElement.classList.add("book");
+    bookElement.id = id;
+    bookElement.innerHTML = `
+        <h2>${title}</h2>
+        <p>${author}</p>
+        <p>${pages} Pages</p>
+        <p>${read ? "have read" : "not yet read"}</p>    
+    `;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    removeBtn.classList.add("remove-book-btn");
+    removeBtn.dataset.id = id;
+
+    removeBtn.addEventListener("click", removeBook);
+    bookElement.appendChild(removeBtn);
+    bookDisplay.appendChild(bookElement);
 }
 
 displayBook();
@@ -56,6 +83,7 @@ const addBookDialog = document.querySelector("dialog");
 const showBookDialogBtn = document.querySelector(".add-book-btn");
 const closeBookDialogBtn = document.querySelector("#close-dialog");
 const addBookBtn = document.querySelector("#add-btn");
+const removeBookBtn = document.querySelectorAll(".remove-book-btn");
 
 showBookDialogBtn.addEventListener("click", () => {
     addBookDialog.showModal();
@@ -81,9 +109,20 @@ addBookBtn.addEventListener("click", (e) => {
     const author = bookInput[1].value;
     const pages = bookInput[2].value;
     const read = bookReadInput.value;
-    addBookToLibrary(title, author, pages, read);
-    displayBook();
+    const uid = self.crypto.randomUUID();
+    addBookToLibrary(title, author, pages, read, uid);
+    addBookToDom(title, author, pages, read, uid);
 
     addBookDialog.close();
     form.reset();
 });
+
+removeBookBtn.forEach(btn => btn.addEventListener("click", removeBook));
+
+function removeBook() {
+    console.log(this.dataset.id);
+    const id = this.dataset.id;
+    myLibrary = myLibrary.filter(book => book.id !== id);
+    const element = document.getElementById(id);
+    element.remove();
+}
