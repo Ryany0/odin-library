@@ -112,3 +112,13 @@ form button {
     font-size: larger;
     align-self: center;
 }
+
+.remove-book-btn {
+    border: 0;
+    background-color: red;
+    color: white;
+    /* padding: 10px; */
+    width: 90px;
+    height: 30px;
+    border-radius: 5px;
+}

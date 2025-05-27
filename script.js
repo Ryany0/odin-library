@@ -42,6 +42,7 @@ function displayBook() {
             <p>${book.author}</p>
             <p>${book.pages} Pages</p>
             <p>${book.read ? "have read" : "not yet read"}</p>
+            <button class="remove-book-btn" data-id="${book.id}">Remove</button>
         </div>        
         `;
 
