@@ -1,4 +1,3 @@
-let myLibrary = [];
 
 function Book(title, author, pages, read, id) {
     if (!new.target) {
@@ -19,9 +18,7 @@ function addBookToLibrary(title, author, pages, read, id) {
 
 }
 
-const bookDisplay = document.querySelector(".book-display");
-
-function displayBook() {
+function displayLibrary() {
     bookDisplay.innerHTML = "";
     myLibrary.forEach(book => {
 
@@ -68,15 +65,6 @@ function addBookToDom(title, author, pages, read, id) {
     bookDisplay.appendChild(bookElement);
 }
 
-displayBook();
-
-const addBookDialog = document.querySelector("dialog");
-const showBookDialogBtn = document.querySelector(".add-book-btn");
-const closeBookDialogBtn = document.querySelector("#close-dialog");
-const addBookBtn = document.querySelector("#add-btn");
-const removeBookBtn = document.querySelectorAll(".remove-book-btn");
-const statusBookBtn = document.querySelectorAll(".change-status-btn");
-
 showBookDialogBtn.addEventListener("click", () => {
     addBookDialog.showModal();
 });
@@ -110,8 +98,6 @@ addBookBtn.addEventListener("click", (e) => {
     form.reset();
 });
 
-removeBookBtn.forEach(btn => btn.addEventListener("click", removeBook));
-
 function removeBook() {
     console.log(this.dataset.id);
     const id = this.dataset.id;
@@ -120,16 +106,29 @@ function removeBook() {
     element.remove();
 }
 
-Book.prototype.toggleRead = function() {
-    this.read = !this.read;
-}
-
-statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));
-
-
 function changeStatus() {
     const id = this.parentNode.id;
     const book1 = myLibrary.find(book => book.id === id);
     book1.toggleRead();
     this.textContent = book1.read ? "have read" : "not yet read";
 }
+
+
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
+}
+
+let myLibrary = [];
+
+const bookDisplay = document.querySelector(".book-display");
+const addBookDialog = document.querySelector("dialog");
+const showBookDialogBtn = document.querySelector(".add-book-btn");
+const closeBookDialogBtn = document.querySelector("#close-dialog");
+const addBookBtn = document.querySelector("#add-btn");
+const removeBookBtn = document.querySelectorAll(".remove-book-btn");
+const statusBookBtn = document.querySelectorAll(".change-status-btn");
+
+displayLibrary();
+
+removeBookBtn.forEach(btn => btn.addEventListener("click", removeBook));
+statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));
