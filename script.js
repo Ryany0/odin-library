@@ -65,8 +65,9 @@ function addBookToDom(title, author, pages, read, id) {
         <p>${author}</p>
         <p>${pages} Pages</p> 
     `;
-    
+
     const statusBtn = document.createElement("button");
+    read = read === "true";
     statusBtn.textContent = read ? "have read" : "not yet read";
     statusBtn.classList.add("change-status-btn");
     statusBtn.addEventListener("click", changeStatus);
