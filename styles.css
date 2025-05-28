@@ -47,7 +47,14 @@
 
 .book {
     border: 1px solid black;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 dialog {
@@ -117,8 +124,17 @@ form button {
     border: 0;
     background-color: red;
     color: white;
-    /* padding: 10px; */
+    font-size: large;
     width: 90px;
     height: 30px;
     border-radius: 5px;
+}
+
+.change-status-btn {
+    width: 90px;
+    height: 30px;
+    border-radius: 5px;
+    border: 0;
+    background-color: var(--button-color);
+    color: white;
 }
