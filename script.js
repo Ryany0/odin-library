@@ -47,7 +47,7 @@ function displayBook() {
             <h2>${book.title}</h2>
             <p>${book.author}</p>
             <p>${book.pages} Pages</p>
-            <p>${book.read ? "have read" : "not yet read"}</p>
+            <button class="change-status-btn">${book.read ? "have read" : "not yet read"}</button>
             <button class="remove-book-btn" data-id="${book.id}">Remove</button>
         `;
 
@@ -66,14 +66,18 @@ function addBookToDom(title, author, pages, read, id) {
         <p>${pages} Pages</p>
         <p>${read ? "have read" : "not yet read"}</p>    
     `;
-
+    const statusBtn = document.createElement("button");
+    statusBtn.textContent = read ? "have read" : "not yet read";
+    statusBtn.classList.add("change-status-btn");
+    bookElement.appendChild(statusBtn);
+    
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
     removeBtn.classList.add("remove-book-btn");
     removeBtn.dataset.id = id;
-
     removeBtn.addEventListener("click", removeBook);
     bookElement.appendChild(removeBtn);
+
     bookDisplay.appendChild(bookElement);
 }
 
