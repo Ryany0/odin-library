@@ -63,12 +63,13 @@ function addBookToDom(title, author, pages, read, id) {
     bookElement.innerHTML = `
         <h2>${title}</h2>
         <p>${author}</p>
-        <p>${pages} Pages</p>
-        <p>${read ? "have read" : "not yet read"}</p>    
+        <p>${pages} Pages</p> 
     `;
+    
     const statusBtn = document.createElement("button");
     statusBtn.textContent = read ? "have read" : "not yet read";
     statusBtn.classList.add("change-status-btn");
+    statusBtn.addEventListener("click", changeStatus);
     bookElement.appendChild(statusBtn);
     
     const removeBtn = document.createElement("button");
@@ -88,6 +89,7 @@ const showBookDialogBtn = document.querySelector(".add-book-btn");
 const closeBookDialogBtn = document.querySelector("#close-dialog");
 const addBookBtn = document.querySelector("#add-btn");
 const removeBookBtn = document.querySelectorAll(".remove-book-btn");
+const statusBookBtn = document.querySelectorAll(".change-status-btn");
 
 showBookDialogBtn.addEventListener("click", () => {
     addBookDialog.showModal();
@@ -113,6 +115,7 @@ addBookBtn.addEventListener("click", (e) => {
     const author = bookInput[1].value;
     const pages = bookInput[2].value;
     const read = bookReadInput.value;
+
     const uid = self.crypto.randomUUID();
     addBookToLibrary(title, author, pages, read, uid);
     addBookToDom(title, author, pages, read, uid);
@@ -129,4 +132,18 @@ function removeBook() {
     myLibrary = myLibrary.filter(book => book.id !== id);
     const element = document.getElementById(id);
     element.remove();
+}
+
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
+}
+
+statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));
+
+
+function changeStatus() {
+    const id = this.parentNode.id;
+    const book1 = myLibrary.find(book => book.id === id);
+    book1.toggleRead();
+    this.textContent = book1.read ? "have read" : "not yet read";
 }
