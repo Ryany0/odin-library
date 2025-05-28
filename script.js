@@ -19,21 +19,6 @@ function addBookToLibrary(title, author, pages, read, id) {
 
 }
 
-
-function testAddBooksToLibrary() {
-    const uid1 = self.crypto.randomUUID();
-    const uid2 = self.crypto.randomUUID();
-    const uid3 = self.crypto.randomUUID();
-    const uid4 = self.crypto.randomUUID();
-    addBookToLibrary("Book 1", "Author 1", 30, true, uid1);
-    addBookToLibrary("Book 2", "Author 2", 60, true, uid2);
-    addBookToLibrary("Book 3", "Author 3", 20, false, uid3);
-    addBookToLibrary("Book 4", "Author 4", 53, false, uid4);
-}
-
-
-testAddBooksToLibrary()
-
 const bookDisplay = document.querySelector(".book-display");
 
 function displayBook() {
