@@ -170,3 +170,7 @@ class Book {
         this.read = !this.read;
     }
 }
+
+const domManager = (function (){
+    
+})();
