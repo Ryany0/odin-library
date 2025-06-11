@@ -156,3 +156,17 @@ class Library {
         return this.books.find(book => book.id === id);
     };
 };
+
+class Book {
+    constructor(title, author, pages, read, id) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = id;
+    }
+
+    changeStatus() {
+        this.read = !this.read;
+    }
+}
