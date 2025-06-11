@@ -139,7 +139,20 @@ class Library {
         this.books = [];
     };
 
+    get getBooks() {
+        return this.books;
+    };
+
     set addBook(book) {
         this.books.push(book);
-    }
+    };
+
+    set removeBook(id) {
+        this.books = this.books.filter(book => book.getid !== id);
+        // TODO: remove book from screen
+    };
+
+    findBook(id) {
+        return this.books.find(book => book.id === id);
+    };
 };
