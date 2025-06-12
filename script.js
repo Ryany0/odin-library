@@ -230,14 +230,14 @@ const domManager = (function (){
     const bookInput = document.querySelectorAll("form > input");
     const bookReadInput = document.querySelector("input[type=radio]:checked");
 
-    const removeBookFromDOM = () => {
-        const id = this.dataset.id;
+    const removeBookFromDOM = (e) => {
+        const id = e.target.dataset.id;
         this.parentElement.remove();
         libraryManager.removeBook(id);
     }
 
-    const changeDOMStatus = () => {
-        const id = this.parentElement.id; 
+    const changeDOMStatus = (e) => {
+        const id = e.target.parentElement.id;
         const newStatus = libraryManager.changeStatus();
         this.textContent = newStatus ? "Read" : "Not Read";
     }
