@@ -141,7 +141,7 @@ const domManager = (function (){
         const title = bookInput[0].value;
         const author = bookInput[1].value;
         const pages = bookInput[2].value;
-        const read = bookReadInput.value;
+        const read = bookReadInput.value === "true";
         const uid = self.crypto.randomUUID();
 
         const newBook = new Book(title, author, pages, read, uid);
