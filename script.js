@@ -148,7 +148,7 @@ class Library {
     };
 
     set removeBook(id) {
-        this.books = this.books.filter(book => book.getid !== id);
+        this.books = this.books.filter(book => book.getId !== id);
     };
 
     findBook(id) {
@@ -195,7 +195,7 @@ const libraryManager = (function() {
     const library = new Library();
 
     const removeBook = (id) => {
-        library.removeBook(id);
+        library.removeBook = id;
     };
 
     const addBookToLibrary = (book) => {
