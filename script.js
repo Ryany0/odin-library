@@ -172,5 +172,38 @@ class Book {
 }
 
 const domManager = (function (){
-    
+
+    const bookDisplay = document.querySelector(".book-display");
+    const addBookDialog = document.querySelector("dialog");
+    const showBookDialogBtn = document.querySelector(".add-book-btn");
+    const closeBookDialogBtn = document.querySelector("#close-dialog");
+    const addBookBtn = document.querySelector("#add-btn");
+    const removeBookBtn = document.querySelectorAll(".remove-book-btn");
+    const statusBookBtn = document.querySelectorAll(".change-status-btn");
+    const template = document.querySelector("#book-template");
+
+
+    const addBook = (book) => {
+        const clone = template.content.cloneNode(true);
+        const h2 = clone.querySelector("h2");
+        const p = clone.querySelectorAll("p");
+        const btn = clone.querySelectorAll("button");
+
+        h2.textContent = book.title;
+        p[0].textContent = book.author;
+        p[1].textContent = book.pages + "pages";
+        btn[0].textContent = book.read ? "Read" : "Not Read";
+        btn[1].dataset.id = book.id;
+        };
+
+    const removeBook = (library) => {
+        const id = this.dataset.id;
+        library.removeBook(id);
+        this.parentElement.remove()
+    }
+
+    // removeBookBtn.forEach(btn => btn.addEventListener("click", removeBook));
+    // statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));
 })();
+
+
