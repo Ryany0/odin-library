@@ -232,14 +232,14 @@ const domManager = (function (){
 
     const removeBookFromDOM = (e) => {
         const id = e.target.dataset.id;
-        this.parentElement.remove();
+        e.target.parentElement.remove();
         libraryManager.removeBook(id);
     }
 
     const changeDOMStatus = (e) => {
         const id = e.target.parentElement.id;
         const newStatus = libraryManager.changeStatus(id);
-        this.textContent = newStatus ? "Read" : "Not Read";
+        e.target.textContent = newStatus ? "Read" : "Not Read";
     }
 
     const addBookToDom = (book) => {
