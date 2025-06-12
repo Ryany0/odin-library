@@ -202,8 +202,33 @@ const domManager = (function (){
         this.parentElement.remove()
     }
 
+    const changeStatus = (library) => {
+        const id = this.parentElement.id;
+        const book = library.findBook(id);
+        book.changeStatus();
+        this.textContent = book.read;
+    }
+
     // removeBookBtn.forEach(btn => btn.addEventListener("click", removeBook));
     // statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));
+    return {bookDisplay}
 })();
 
 
+const b = new Book("a", "b", 23, true, "1515");
+
+const template = document.querySelector("#book-template");
+let clone = template.content.cloneNode(true);
+let div = clone.querySelector(".book");
+let h2 = clone.querySelector("h2");
+let p = clone.querySelectorAll("p");
+let btn = clone.querySelectorAll("button");
+
+h2.textContent = b.title;
+p[0].textContent = b.author;
+p[1].textContent = b.pages;
+btn[0].textContent = "true";
+btn[1].dataset.id = b.id;
+console.log(div.id = "123");
+
+domManager.bookDisplay.appendChild(clone);
