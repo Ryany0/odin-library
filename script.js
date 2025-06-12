@@ -230,8 +230,6 @@ const domManager = (function (){
     const bookInput = document.querySelectorAll("form > input");
     const bookReadInput = document.querySelector("input[type=radio]:checked");
 
-    console.log(form);
-
     const removeBookFromDOM = () => {
         const id = this.dataset.id;
         this.parentElement.remove();
@@ -250,6 +248,7 @@ const domManager = (function (){
         const h2 = clone.querySelector("h2");
         const p = clone.querySelectorAll("p");
         const btn = clone.querySelectorAll("button");
+        const container = clone.querySelector(".book");
 
         h2.textContent = book.getTitle;
         p[0].textContent = book.getAuthor;
@@ -260,6 +259,10 @@ const domManager = (function (){
 
         btn[1].dataset.id = book.getId;
         btn[1].addEventListener("click", removeBookFromDOM);
+
+        container.id = book.getId;
+
+        bookDisplay.appendChild(clone);
     };
 
     const createBook = (e) => {
@@ -294,7 +297,4 @@ const domManager = (function (){
     });
 
     addBookBtn.addEventListener("click", createBook);
-
-    // removeBookBtn.forEach(btn => btn.addEventListener("click", removeBook));
-    // statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));}
 })();
