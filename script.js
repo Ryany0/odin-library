@@ -169,6 +169,18 @@ class Book {
         this.read = !this.read;
     }
 
+    get title() {
+        return this.title;
+    }
+
+    get author() {
+        return this.author;
+    }
+
+    get pages() { 
+        return this.pages;
+    }
+
     get status() {
         return this.read;
     }
@@ -180,7 +192,11 @@ const libraryManager = (function() {
 
     const removeBook = (id) => {
         library.removeBook(id);
-    }
+    };
+
+    const addBookToLibrary = (book) => {
+        library.addBook(book);
+    };
 
     const changeStatus = (id) => {
         const book = library.findBook(id);
@@ -188,7 +204,7 @@ const libraryManager = (function() {
         return book.status;
     }
 
-    return { removeBook, changeStatus }
+    return { removeBook, changeStatus, addBookToLibrary }
 })();
 
 const domManager = (function (){
@@ -202,7 +218,9 @@ const domManager = (function (){
     const removeBookBtn = document.querySelectorAll(".remove-book-btn");
     const statusBookBtn = document.querySelectorAll(".change-status-btn");
     const template = document.querySelector("#book-template");
+    const form = document.querySelector("form");
 
+    console.log(form);
 
     const removeBookFromDOM = () => {
         const id = this.dataset.id;
@@ -216,7 +234,8 @@ const domManager = (function (){
         this.textContent = newStatus ? "Read" : "Not Read";
     }
 
-    const addBook = (book) => {
+    const addBookToDom = (book) => {
+
         const clone = template.content.cloneNode(true);
         const h2 = clone.querySelector("h2");
         const p = clone.querySelectorAll("p");
@@ -226,16 +245,49 @@ const domManager = (function (){
         p[0].textContent = book.author;
         p[1].textContent = book.pages + "pages";
 
-        btn[0].textContent = book.read ? "Read" : "Not Read";
-        btn[0].addEventListener("click", changeStatus);
+        btn[0].textContent = book.status ? "Read" : "Not Read";
+        btn[0].addEventListener("click", changeDOMStatus);
 
         btn[1].dataset.id = book.id;
-        btn[1].addEventListener("click", removeBook);
-        };
+        btn[1].addEventListener("click", removeBookFromDOM);
+    };
+
+    const createBook = (e) => {
+
+        if (form.checkValidity() === false) {
+            return;
+        }
+
+        e.preventDefault();
+        
+        const bookInput = document.querySelectorAll("form > input");
+        const bookReadInput = document.querySelector("input[type=radio]:checked");
+
+        const title = bookInput[0].value;
+        const author = bookInput[1].value;
+        const pages = bookInput[2].value;
+        const read = bookReadInput.value;
+        const uid = self.crypto.randomUUID();
+
+        const newBook = new Book(title, author, pages, read, uid);
+        libraryManager.addBookToLibrary(newBook);
+        addBookToDom(newBook);
+
+        addBookDialog.close();
+        form.reset();
+    };
 
     
+    showBookDialogBtn.addEventListener("click", () => {
+        addBookDialog.showModal();
+    });
+
+    closeBookDialogBtn.addEventListener("click", ()=> {
+        addBookDialog.close();
+    });
+
+    addBookBtn.addEventListener("click", createBook);
 
     // removeBookBtn.forEach(btn => btn.addEventListener("click", removeBook));
-    // statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));
-    return {bookDisplay}
+    // statusBookBtn.forEach(btn => btn.addEventListener("click", changeStatus));}
 })();
