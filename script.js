@@ -169,20 +169,24 @@ class Book {
         this.read = !this.read;
     }
 
-    get title() {
+    get getTitle() {
         return this.title;
     }
 
-    get author() {
+    get getAuthor() {
         return this.author;
     }
 
-    get pages() { 
+    get getPages() { 
         return this.pages;
     }
 
-    get status() {
+    get getStatus() {
         return this.read;
+    }
+
+    get getId() {
+        return this.id;
     }
 }
 
@@ -195,16 +199,20 @@ const libraryManager = (function() {
     };
 
     const addBookToLibrary = (book) => {
-        library.addBook(book);
+        library.addBook = book;
     };
 
     const changeStatus = (id) => {
         const book = library.findBook(id);
         book.changeStatus();
-        return book.status;
+        return book.getStatus;
     }
 
-    return { removeBook, changeStatus, addBookToLibrary }
+    const getlibrary = () => {
+        return library;
+    };
+
+    return { removeBook, changeStatus, addBookToLibrary, getlibrary }
 })();
 
 const domManager = (function (){
@@ -219,6 +227,8 @@ const domManager = (function (){
     const statusBookBtn = document.querySelectorAll(".change-status-btn");
     const template = document.querySelector("#book-template");
     const form = document.querySelector("form");
+    const bookInput = document.querySelectorAll("form > input");
+    const bookReadInput = document.querySelector("input[type=radio]:checked");
 
     console.log(form);
 
@@ -241,14 +251,14 @@ const domManager = (function (){
         const p = clone.querySelectorAll("p");
         const btn = clone.querySelectorAll("button");
 
-        h2.textContent = book.title;
-        p[0].textContent = book.author;
-        p[1].textContent = book.pages + "pages";
+        h2.textContent = book.getTitle;
+        p[0].textContent = book.getAuthor;
+        p[1].textContent = book.getPages + "pages";
 
-        btn[0].textContent = book.status ? "Read" : "Not Read";
+        btn[0].textContent = book.getStatus ? "Read" : "Not Read";
         btn[0].addEventListener("click", changeDOMStatus);
 
-        btn[1].dataset.id = book.id;
+        btn[1].dataset.id = book.getId;
         btn[1].addEventListener("click", removeBookFromDOM);
     };
 
@@ -259,9 +269,6 @@ const domManager = (function (){
         }
 
         e.preventDefault();
-        
-        const bookInput = document.querySelectorAll("form > input");
-        const bookReadInput = document.querySelector("input[type=radio]:checked");
 
         const title = bookInput[0].value;
         const author = bookInput[1].value;
