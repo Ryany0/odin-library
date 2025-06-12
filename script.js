@@ -238,7 +238,7 @@ const domManager = (function (){
 
     const changeDOMStatus = (e) => {
         const id = e.target.parentElement.id;
-        const newStatus = libraryManager.changeStatus();
+        const newStatus = libraryManager.changeStatus(id);
         this.textContent = newStatus ? "Read" : "Not Read";
     }
 
